@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import EditInvoiceForm from '@/app/ui/invoices/edit-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
@@ -11,6 +12,10 @@ export default async function EditInvoicePage(props: { params: Promise<{ id: str
         fetchInvoiceById(id),
         fetchCustomers(),
     ]);
+
+    if (!invoice) {
+        notFound();
+    }
 
     return (
         <main>
